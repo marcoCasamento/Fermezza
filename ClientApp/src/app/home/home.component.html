@@ -1,0 +1,13 @@
+<h1>Fermezza</h1>
+<p>Apertura cancello</p>
+
+
+<a class="nav-link text-dark" [routerLink]='["/authentication/profile"]' title="Manage">Ciao </a>
+<a class="nav-link text-dark" [routerLink]='["/authentication/logout"]' [state]='{ local: true }' title="Logout">Logout</a>
+<a class="nav-link text-dark" [routerLink]='["/authentication/register"]'>Register</a>
+<a class="nav-link text-dark" [routerLink]='["/authentication/login"]'>Login</a>
+
+<button class="btn btn-primary" (click)="apriCancello()">Apri</button>
+
+<p aria-live="polite">Comandi inviati: <strong>{{ currentCount }}</strong></p>
+
