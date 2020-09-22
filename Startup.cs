@@ -64,8 +64,9 @@ namespace Fermezza
                 facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
             });
 
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IEmailSender, SendGridEmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.Configure<HaOptions>(Configuration);
 
             services.AddControllersWithViews();
             services.AddRazorPages();

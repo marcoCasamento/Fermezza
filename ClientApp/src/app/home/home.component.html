@@ -1,13 +1,25 @@
 <h1>Fermezza</h1>
 <p>Apertura cancello</p>
 
-
-<a class="nav-link text-dark" [routerLink]='["/authentication/profile"]' title="Manage">Ciao </a>
-<a class="nav-link text-dark" [routerLink]='["/authentication/logout"]' [state]='{ local: true }' title="Logout">Logout</a>
-<a class="nav-link text-dark" [routerLink]='["/authentication/register"]'>Register</a>
-<a class="nav-link text-dark" [routerLink]='["/authentication/login"]'>Login</a>
-
 <button class="btn btn-primary" (click)="apriCancello()">Apri</button>
 
 <p aria-live="polite">Comandi inviati: <strong>{{ currentCount }}</strong></p>
 
+<p *ngIf="!weather"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="weather">
+  <thead>
+    <tr>
+      <th>Info</th>
+      <th>Valore</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let wh of weather">
+      <td>{{ wh.title }}</td>
+      <td>{{ wh.value }}</td>
+      <td>{{ wh.lastUpdate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+    </tr>
+  </tbody>
+</table>
