@@ -1,25 +1,32 @@
-<h1>Fermezza</h1>
+<!--<h1>Fermezza</h1>-->
 <p>Apertura cancello</p>
 
-<button class="btn btn-primary" (click)="apriCancello()">Apri</button>
+<div *ngIf="!(isAuthenticated | async)">
+  <p>
+    Autenticazione necessaria, <a [routerLink]='["/authentication/login"]'>eseguire l'accesso </a>
+  </p>
+</div>
+<div *ngIf="(isAuthenticated | async)">
+  <button class="btn btn-primary" (click)="apriCancello()">Apri</button>
 
-<p aria-live="polite">Comandi inviati: <strong>{{ currentCount }}</strong></p>
+  <p aria-live="polite">Comandi inviati: <strong>{{ currentCount }}</strong></p>
 
-<p *ngIf="!weather"><em>Loading...</em></p>
+  <p *ngIf="!weather"><em>Loading...</em></p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="weather">
-  <thead>
-    <tr>
-      <th>Info</th>
-      <th>Valore</th>
-      <th>Data</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let wh of weather">
-      <td>{{ wh.title }}</td>
-      <td>{{ wh.value }}</td>
-      <td>{{ wh.lastUpdate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-    </tr>
-  </tbody>
-</table>
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="weather">
+    <thead>
+      <tr>
+        <th>Info</th>
+        <th>Valore</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let wh of weather">
+        <td>{{ wh.title }}</td>
+        <td>{{ wh.value }}</td>
+        <td>{{ wh.lastUpdate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

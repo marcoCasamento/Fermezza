@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Fermezza.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,6 +17,7 @@ namespace Fermezza.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class FermezzaController : ControllerBase
     {
         readonly HttpClient client;
