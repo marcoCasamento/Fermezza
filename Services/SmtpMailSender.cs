@@ -32,8 +32,9 @@ namespace Fermezza.Services
             {
                 Subject = subject,
                 Body = message,
+                IsBodyHtml = true
             };
-
+            
             return client.SendMailAsync(msg);
         }
 

@@ -18,12 +18,14 @@ export class HomeComponent implements OnInit {
   constructor(private authorizeService: AuthorizeService, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
     this.baseUrl = baseUrl;
-    this.getWeather();
+    
   }
 
   ngOnInit() {
     this.isAuthenticated = this.authorizeService.isAuthenticated();
     this.userName = this.authorizeService.getUser().pipe(map(u => u && u.name));
+    if (this.isAuthenticated)
+        this.getWeather();
   }
 
   public apriCancello() {

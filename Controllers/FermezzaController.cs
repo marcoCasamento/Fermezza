@@ -17,7 +17,8 @@ namespace Fermezza.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
+    [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
     public class FermezzaController : ControllerBase
     {
         readonly HttpClient client;
@@ -35,7 +36,6 @@ namespace Fermezza.Controllers
                 .Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", 
                 options.Value.HaToken
-                //"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhOWE3MjU3YTE4NDA0ZGUwYjgyYWE5ZWQwYTZhZGZkYSIsImlhdCI6MTU4Mzk0NTY3NiwiZXhwIjoxODk5MzA1Njc2fQ.MGcD6DfIDuqp8gkx-69xCU7q9jwwb5l7__5G6aOTqD0"
                 );
 
             Options = options;
@@ -47,13 +47,16 @@ namespace Fermezza.Controllers
         [HttpGet("apriCancello")]
         public async Task<bool> apriCancello()
         {
-            var parameter = new haEntity()
+            var parameter = new haIdEntity()
             {
                 entity_id = "switch.cancello_fermezza"
             };
             var body = JsonConvert.SerializeObject(parameter);
 
             var response = await client.PostAsync($"services/switch/turn_on", new StringContent(body, Encoding.UTF8, "application/json"));
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                return false;
+
             var responseContent = await response.Content.ReadAsStringAsync();
 
             return true;
@@ -111,6 +114,10 @@ namespace Fermezza.Controllers
         public DateTime LastUpdate { get; set; }
     }
 
+    public class haIdEntity
+    {
+        public string entity_id { get; set; }
+    }
     public class haEntity
     {
         public Attributes attributes { get; set; }

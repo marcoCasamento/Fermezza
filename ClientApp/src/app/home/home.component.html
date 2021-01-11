@@ -1,32 +1,50 @@
 <!--<h1>Fermezza</h1>-->
 <p>Apertura cancello</p>
 
-<div *ngIf="!(isAuthenticated | async)">
+<!--<div *ngIf="!(isAuthenticated | async)">
   <p>
     Autenticazione necessaria, <a [routerLink]='["/authentication/login"]'>eseguire l'accesso </a>
   </p>
-</div>
-<div *ngIf="(isAuthenticated | async)">
+</div>-->
+<!--<div *ngIf="(isAuthenticated | async)">-->
+<div>
   <button class="btn btn-primary" (click)="apriCancello()">Apri</button>
 
   <p aria-live="polite">Comandi inviati: <strong>{{ currentCount }}</strong></p>
 
-  <p *ngIf="!weather"><em>Loading...</em></p>
+  <mat-slide-toggle [disabled]="true">
+    <!--[(ngModel)]="myFlagForSlideToggle">-->
+    Blocca Aperto
+  </mat-slide-toggle>
+  <p>
 
-  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="weather">
-    <thead>
-      <tr>
-        <th>Info</th>
-        <th>Valore</th>
-        <th>Data</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let wh of weather">
-        <td>{{ wh.title }}</td>
-        <td>{{ wh.value }}</td>
-        <td>{{ wh.lastUpdate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-      </tr>
-    </tbody>
-  </table>
+  </p>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Dati ambientali
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p *ngIf="!weather">
+      <em>Loading...</em>
+    </p>
+    <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="weather">
+      <thead>
+        <tr>
+          <th>Info</th>
+          <th>Valore</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let wh of weather">
+          <td>{{ wh.title }}</td>
+          <td>{{ wh.value }}</td>
+          <td>{{ wh.lastUpdate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-expansion-panel>
+
+
 </div>

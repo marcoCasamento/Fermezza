@@ -46,14 +46,12 @@ namespace Fermezza
             //strip header and footer from pem file
             //get byte array from base64 string
 
-            //TODO: Define Path in settings for PEM files (has to be mapped in docker, so to directly read from live cert of letsencrypt)
             var privateKey = PEMHelpers.GetBytesFromPEM(File.ReadAllText("certs/privkey.pem"), "PRIVATE KEY");
             var cert = new X509Certificate2("certs/fullchain.pem");
-
             var rsa = RSA.Create();
             rsa.ImportPkcs8PrivateKey(privateKey, out _);
             cert = cert.CopyWithPrivateKey(rsa);
-            
+
             idSrv.AddSigningCredential(cert);
 
             services.AddAuthentication()
@@ -64,7 +62,8 @@ namespace Fermezza
                 facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
             });
 
-            services.AddTransient<IEmailSender, SendGridEmailSender>();
+            //services.AddTransient<IEmailSender, SendGridEmailSender>();
+            services.AddTransient<IEmailSender, SmtpMailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.Configure<HaOptions>(Configuration);
 
