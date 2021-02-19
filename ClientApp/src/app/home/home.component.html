@@ -1,13 +1,13 @@
 <!--<h1>Fermezza</h1>-->
 <p>Apertura cancello</p>
 
-<!--<div *ngIf="!(isAuthenticated | async)">
+<div *ngIf="!(isAuthenticated | async)">
   <p>
     Autenticazione necessaria, <a [routerLink]='["/authentication/login"]'>eseguire l'accesso </a>
   </p>
-</div>-->
-<!--<div *ngIf="(isAuthenticated | async)">-->
-<div>
+</div>
+<div *ngIf="(isAuthenticated | async)">
+<!--<div>-->
   <button class="btn btn-primary" (click)="apriCancello()">Apri</button>
 
   <p aria-live="polite">Comandi inviati: <strong>{{ currentCount }}</strong></p>

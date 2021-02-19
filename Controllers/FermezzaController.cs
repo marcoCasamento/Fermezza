@@ -17,7 +17,7 @@ namespace Fermezza.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
     public class FermezzaController : ControllerBase
     {

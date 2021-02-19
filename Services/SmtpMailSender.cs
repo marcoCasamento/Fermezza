@@ -1,11 +1,11 @@
 ﻿using Fermezza.Helpers;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace Fermezza.Services
@@ -21,21 +21,22 @@ namespace Fermezza.Services
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            var client = new SmtpClient(Options.SmtpServer)
-            {
-                Port = Options.SmtpPort,
-                EnableSsl = Options.SmtpUseSSL,
-                Credentials = new NetworkCredential(Options.SmtpUser, Options.SmtpPassword)
-            };
+            var client = new SmtpClient();
+            client.Connect(Options.SmtpServer, Options.SmtpPort, Options.SmtpUseSSL);
+            client.Authenticate(Options.SmtpUser, Options.SmtpPassword);
 
-            var msg = new MailMessage("admin@ecasamento.com", email)
-            {
-                Subject = subject,
-                Body = message,
-                IsBodyHtml = true
-            };
-            
-            return client.SendMailAsync(msg);
+
+            var msg = new MimeMessage();
+            msg.From.Add(new MailboxAddress("eCasamento Administrator", "admin@ecasamento.com"));
+            msg.To.Add(new MailboxAddress((string)null, email));
+            msg.Bcc.Add(new MailboxAddress("Marco Casamento", "marco.casamento@hotmail.it"));
+            msg.Subject = subject;
+
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = message;
+            msg.Body = bodyBuilder.ToMessageBody();
+
+            return client.SendAsync(msg);
         }
 
     }
