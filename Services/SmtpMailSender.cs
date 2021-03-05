@@ -28,14 +28,15 @@ namespace Fermezza.Services
 
             var msg = new MimeMessage();
             msg.From.Add(new MailboxAddress("eCasamento Administrator", "admin@ecasamento.com"));
-            msg.To.Add(new MailboxAddress((string)null, email));
-            msg.Bcc.Add(new MailboxAddress("Marco Casamento", "marco.casamento@hotmail.it"));
+            //msg.To.Add(new MailboxAddress((string)null, email));
+            msg.To.Add(new MailboxAddress("Marco Casamento", "marco.casamento@hotmail.it"));
             msg.Subject = subject;
-
+            message += $"email richiedente: {email}";
             var bodyBuilder = new BodyBuilder();
             bodyBuilder.HtmlBody = message;
+            
             msg.Body = bodyBuilder.ToMessageBody();
-
+            
             return client.SendAsync(msg);
         }
 

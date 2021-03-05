@@ -3,14 +3,14 @@
         <a  class="nav-link text-dark" [routerLink]='["/authentication/profile"]' title="Manage">Ciao {{ userName | async }}</a>
     </li>
     <li class="nav-item">
-        <a  class="nav-link text-dark" [routerLink]='["/authentication/logout"]' [state]='{ local: true }' title="Logout">Logout</a>
+        <a  class="nav-link text-dark" [routerLink]='["/authentication/logout"]' [state]='{ local: true }' title="Logout">Esci</a>
     </li>
 </ul>
 <ul class="navbar-nav" *ngIf="!(isAuthenticated | async)">
   <li class="nav-item">
-        <a class="nav-link text-dark" [routerLink]='["/authentication/register"]'>Register</a>
+        <a class="nav-link text-dark" [routerLink]='["/authentication/register"]'>Registrati</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" [routerLink]='["/authentication/login"]'>Login</a>
+        <a class="nav-link text-dark" [routerLink]='["/authentication/login"]'>Accedi</a>
     </li>
 </ul>
